@@ -1,6 +1,7 @@
 package cn.jarlen.houseinspection.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,24 +15,24 @@ import cn.jarlen.richcommon.adapter.ViewHolder;
  * Created by hjl on 2016/11/3.
  */
 
-public class ProblemAdapter extends SimpleBaseAdapter<Problem> {
+public class ProblemAdapter extends RecyclerView.Adapter {
 
     public ProblemAdapter(Context context) {
         super(context);
     }
 
     @Override
-    public int getCount() {
-        return 10;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ViewHolder viewHolder = ViewHolder.getViewHolder(context,parent,convertView,position, R.layout.layout_problems_item);
+    }
 
-
-
-        return viewHolder.getConvertView();
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 }

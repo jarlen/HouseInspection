@@ -1,11 +1,21 @@
 package cn.jarlen.houseinspection;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import butterknife.BindView;
+import cn.jarlen.houseinspection.adapter.ProblemAdapter;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.ui.ProblemSubActivity;
 
 public class MainActivity extends BKBaseActivity {
+
+    @BindView(R.id.xrecyclerview)
+    private XRecyclerView mRecyclerView;
+
+    private ProblemAdapter problemAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -25,5 +35,11 @@ public class MainActivity extends BKBaseActivity {
                 startActivity(ProblemSubActivity.class, null);
             }
         });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        problemAdapter = new ProblemAdapter(this);
+        mRecyclerView.setAdapter(problemAdapter);
     }
 }
