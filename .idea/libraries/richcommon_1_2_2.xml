@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="richcommon-1.2.2">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.jarlen.maven/richcommon/1.2.2/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.jarlen.maven/richcommon/1.2.2/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.jarlen.maven/richcommon/1.2.2/4433c426a31e56698ce99ce108a83c5101a48c15/richcommon-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -36,6 +36,7 @@
                 android:textSize="@dimen/size3" />
 
             <ImageView
+                android:id="@+id/getlocation"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/location2" />
