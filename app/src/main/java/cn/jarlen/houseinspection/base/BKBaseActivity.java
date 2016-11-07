@@ -24,8 +24,11 @@ public abstract class BKBaseActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
 
-    @BindView(R.id.menu_right_one)
+    @BindView(R.id.menu_right_img)
     ImageView menuRightOne;
+
+    @BindView(R.id.menu_right_tv)
+    TextView menuRightTv;
 
     @Override
     protected void onBindViews() {
@@ -55,7 +58,7 @@ public abstract class BKBaseActivity extends BaseActivity {
     }
 
     protected void hideBackView() {
-        this.back.setVisibility(View.GONE);
+        this.back.setVisibility(View.INVISIBLE);
         this.back.setOnClickListener(null);
     }
 
@@ -74,15 +77,30 @@ public abstract class BKBaseActivity extends BaseActivity {
         this.title.setVisibility(View.INVISIBLE);
     }
 
-    protected void showRightOne(int resId, View.OnClickListener listener) {
+    protected void showRightImg(int resId, View.OnClickListener listener) {
         menuRightOne.setVisibility(View.VISIBLE);
         menuRightOne.setImageResource(resId);
         menuRightOne.setOnClickListener(listener);
     }
 
-    protected void hideRightOne() {
+    protected void hideRightImg() {
         menuRightOne.setVisibility(View.INVISIBLE);
         menuRightOne.setOnClickListener(null);
+    }
+
+    protected void showRightText(int resId,View.OnClickListener listener){
+        showRightText(getString(resId),listener);
+    }
+
+    protected void showRightText(String text,View.OnClickListener listener){
+        menuRightTv.setVisibility(View.VISIBLE);
+        menuRightTv.setText(text);
+        menuRightTv.setOnClickListener(listener);
+    }
+
+    protected void hideRightText(){
+        menuRightTv.setVisibility(View.INVISIBLE);
+        menuRightTv.setOnClickListener(null);
     }
 
     protected void startActivity(Class<?> activity, Bundle args){

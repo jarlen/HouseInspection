@@ -1,6 +1,11 @@
 package cn.jarlen.houseinspection.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ZoomControls;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -25,6 +30,8 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import butterknife.BindView;
 import cn.jarlen.houseinspection.R;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
+import cn.jarlen.houseinspection.data.LocationInfo;
+import cn.jarlen.houseinspection.utils.LocationUtil;
 import cn.jarlen.richcommon.log.Log;
 import cn.jarlen.richcommon.utils.ToastUtil;
 
@@ -38,25 +45,42 @@ public class LoactionChooseActivity extends BKBaseActivity {
     @BindView(R.id.mapview)
     MapView mapView;
 
-    @BindView(R.id.location_info)
-    TextView locationInfo;
+    @BindView(R.id.locationtv)
+    TextView locationTv;
 
     private BaiduMap mBaiduMap;
 
-    private double mLatitude;
-    private double mLongitude;
+    private LocationInfo locationInfo;
 
-    private LatLng defaultLatLng = new LatLng(113.523624,34.817154);
+    private LatLng defaultLatLng = new LatLng(34.817154,113.523624);
 
     private LocationClient locationClient;
     private BDLocationListener listener = new MyLocationListener();
 
     @Override
     protected void onBKBindView() {
+        showBackView();
+        showTitleView(R.string.location_choose);
+
+        showRightText(R.string.ok, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent result = new Intent();
+                result.putExtra("data",locationInfo);
+                setResult(Activity.RESULT_OK,result);
+                finish();
+            }
+        });
 
         mBaiduMap = mapView.getMap();
-        mapView.showZoomControls(true);
-        MapStatus mapStatus = new MapStatus.Builder().target(defaultLatLng).zoom(18).build();
+        View child = mapView.getChildAt(1);
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)){
+            child.setVisibility(View.INVISIBLE);
+        }
+        mapView.showScaleControl(false);
+        mapView.showZoomControls(false);
+        MapStatus mapStatus = new MapStatus.Builder().target(defaultLatLng).zoom(16).build();
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(mapStatus));
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
@@ -70,10 +94,13 @@ public class LoactionChooseActivity extends BKBaseActivity {
                 return false;
             }
         });
-//        locationClient = new LocationClient(getApplicationContext());
-//        locationClient.registerLocationListener(listener);
-//        LocationUtil.initLocation(locationClient);
-//        locationClient.start();
+        setMapOverlay(defaultLatLng);
+        getInfoFromLAL(defaultLatLng);
+        locationClient = new LocationClient(getApplicationContext());
+        locationClient.registerLocationListener(listener);
+        LocationUtil.initLocation(locationClient);
+        locationClient.start();
+
     }
 
     @Override
@@ -84,8 +111,15 @@ public class LoactionChooseActivity extends BKBaseActivity {
 
     // 根据经纬度查询位置
     private void getInfoFromLAL(final LatLng point) {
+        if(locationInfo == null){
+            locationInfo = new LocationInfo();
+        }
 
-        locationInfo.setText("经度：" + point.latitudeE6 + "，纬度" + point.latitudeE6);
+        locationInfo.setLongitude(point.longitude);
+        locationInfo.setLatitude(point.latitude);
+
+        locationTv.setText("经度：" + point.latitudeE6 + "\n纬度：" + point.latitudeE6);
+        locationTv.setVisibility(View.VISIBLE);
         GeoCoder gc = GeoCoder.newInstance();
         gc.reverseGeoCode(new ReverseGeoCodeOption().location(point));
         gc.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
@@ -96,7 +130,8 @@ public class LoactionChooseActivity extends BKBaseActivity {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
                     Log.e("发起反地理编码请求", "未能找到结果");
                 } else {
-                    locationInfo.setText("经度：" + point.latitudeE6 + "，纬度" + point.latitudeE6
+                    locationInfo.setLocationDesc(result.getAddress());
+                    locationTv.setText("经度：" + point.latitudeE6 + "\n纬度：" + point.latitudeE6
                             + "\n" + result.getAddress());
                 }
             }
@@ -111,9 +146,9 @@ public class LoactionChooseActivity extends BKBaseActivity {
 
     // 在地图上添加标注
     private void setMapOverlay(LatLng point) {
-        mLatitude = point.latitude;
-        mLongitude = point.longitude;
-
+        if(locationInfo == null){
+            locationInfo = new LocationInfo();
+        }
         mBaiduMap.clear();
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_mark);
         OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);

@@ -5,4 +5,7 @@
     <string name="login_wx">微信登录</string>
 
     <string name="problem_submit">提交验房问题</string>
+    <string name="location_choose">选择楼盘位置</string>
+
+    <string name="ok">确定</string>
 </resources>

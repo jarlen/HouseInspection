@@ -19,7 +19,7 @@ public class MainActivity extends BKBaseActivity {
 
     @Override
     protected void onBKBindView() {
-        showRightOne(R.drawable.add, new View.OnClickListener() {
+        showRightImg(R.drawable.add, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(ProblemSubActivity.class, null);
