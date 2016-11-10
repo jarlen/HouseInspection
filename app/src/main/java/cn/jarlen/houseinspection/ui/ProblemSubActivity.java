@@ -30,7 +30,7 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
     }
 
     @Override
-    protected void preBindViews() {
+    protected void preBindView() {
     }
 
     @Override

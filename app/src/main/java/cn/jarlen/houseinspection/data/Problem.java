@@ -39,4 +39,52 @@ public class Problem {
      * 上传时间
      */
     private long create_at;
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCreate_at(long create_at) {
+        this.create_at = create_at;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public void setProblemid(int problemid) {
+        this.problemid = problemid;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getProblemid() {
+        return problemid;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public long getCreate_at() {
+        return create_at;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

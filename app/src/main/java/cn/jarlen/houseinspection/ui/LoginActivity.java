@@ -22,7 +22,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void onBindViews() {
+    protected void onBindView() {
         loginWX = (TextView) findViewById(R.id.login_wx);
         loginWX.setOnClickListener(this);
         loginQQ = (TextView) findViewById(R.id.login_qq);
@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void preBindViews() {
+    protected void preBindView() {
 
     }
 
