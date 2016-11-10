@@ -10,7 +10,7 @@ import cn.jarlen.houseinspection.adapter.ProblemAdapter;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.ui.ProblemSubActivity;
 
-public class MainActivity extends BKBaseActivity {
+public class HomeActivity extends BKBaseActivity {
 
     @BindView(R.id.xrecyclerview)
     private XRecyclerView mRecyclerView;
@@ -23,7 +23,7 @@ public class MainActivity extends BKBaseActivity {
     }
 
     @Override
-    protected void preBindViews() {
+    protected void preBindView() {
 
     }
 

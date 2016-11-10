@@ -31,7 +31,7 @@ public abstract class BKBaseActivity extends BaseActivity {
     TextView menuRightTv;
 
     @Override
-    protected void onBindViews() {
+    protected void onBindView() {
         ButterKnife.bind(this);
         onBKBindView();
     }
@@ -47,7 +47,7 @@ public abstract class BKBaseActivity extends BaseActivity {
     }
 
     @Override
-    protected void preBindViews() {
+    protected void preBindView() {
         overridePendingTransition(R.anim.anim_right_in,R.anim.open_right_exit);
     }
 

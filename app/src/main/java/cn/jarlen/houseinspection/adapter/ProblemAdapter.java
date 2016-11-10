@@ -1,38 +1,29 @@
 package cn.jarlen.houseinspection.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
 
-import cn.jarlen.houseinspection.R;
 import cn.jarlen.houseinspection.data.Problem;
-import cn.jarlen.richcommon.adapter.SimpleBaseAdapter;
-import cn.jarlen.richcommon.adapter.ViewHolder;
+import cn.jarlen.richcommon.adapter.RvCommonAdapter;
+import cn.jarlen.richcommon.adapter.RvViewHolder;
 
 /**
  * DESCRIBE:
  * Created by hjl on 2016/11/3.
  */
 
-public class ProblemAdapter extends RecyclerView.Adapter {
+public class ProblemAdapter extends RvCommonAdapter<Problem> {
 
     public ProblemAdapter(Context context) {
         super(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindView(RvViewHolder viewHolder, Problem item) {
 
     }
 
     @Override
-    public int getItemCount() {
+    public int getLayoutResId() {
         return 0;
     }
 }
