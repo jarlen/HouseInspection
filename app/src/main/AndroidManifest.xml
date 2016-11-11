@@ -9,7 +9,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"
+        <activity
+            android:name=".HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,14 +19,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.LoginActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.ProblemSubActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.ProblemSubActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.LoactionChooseActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.LoactionChooseActivity"
+            android:screenOrientation="portrait" />
 
         <!--Begin: 百度定位 -->
         <meta-data
@@ -34,8 +38,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
-        </service>
+            android:process=":remote"/>
 
 
         <!--End: 百度定位 -->
@@ -52,6 +55,10 @@
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

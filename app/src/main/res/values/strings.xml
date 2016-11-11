@@ -2,7 +2,7 @@
     <string name="app_name">验房</string>
     <string name="choose_login_tip">选择登录方式</string>
     <string name="login_qq">QQ登录</string>
-    <string name="login_wx">微信登录</string>
+    <string name="login_sina">新浪登录</string>
 
     <string name="problem_submit">提交验房问题</string>
     <string name="location_choose">选择楼盘位置</string>

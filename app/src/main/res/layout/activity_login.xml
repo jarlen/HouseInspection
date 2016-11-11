@@ -50,7 +50,7 @@
                 android:textSize="@dimen/size2" />
 
             <TextView
-                android:id="@+id/login_wx"
+                android:id="@+id/login_sina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -60,7 +60,7 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:paddingTop="8dp"
-                android:text="@string/login_wx"
+                android:text="@string/login_sina"
                 android:textColor="@color/color2"
                 android:textSize="@dimen/size2" />
         </LinearLayout>

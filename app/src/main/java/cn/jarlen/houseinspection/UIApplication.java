@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * DESCRIBE:
  * Created by hjl on 2016/11/7.
@@ -14,5 +16,6 @@ public class UIApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(getApplicationContext());
+        ShareSDK.initSDK(getApplicationContext());
     }
 }
