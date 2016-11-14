@@ -160,7 +160,7 @@
             android:layout_marginLeft="4dp"
             android:gravity="left|center"
             android:lines="1"
-            android:text="楼层房号:"
+            android:text="楼层房号(可略):"
             android:textSize="@dimen/size3" />
 
         <EditText
