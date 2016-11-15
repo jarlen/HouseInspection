@@ -1,7 +1,7 @@
 package cn.jarlen.houseinspection.data;
 
 /**
- * DESCRIBE: 问题时间
+ * DESCRIBE: 问题详情
  * Created by jarlen on 2016/11/3.
  */
 
@@ -13,19 +13,49 @@ public class Problem {
     private int problemid;
 
     /**
-     * 问题标题
-     */
-    private String title;
-
-    /**
      * 问题场景照片
      */
-    private String img;
+    private String pics;
 
     /**
      * 问题描述
      */
     private String content;
+
+    /**
+     * 楼盘名称
+     */
+    private String estatename;
+
+    /**
+     * 楼盘地址
+     */
+    private String addr;
+
+    /**
+     * 位置-经度
+     */
+    private String longitude;
+
+    /**
+     * 位置-维度
+     */
+    private String latitude;
+
+    /**
+     * 楼盘期数
+     */
+    private int period;
+
+    /**
+     * 作者
+     */
+    private String author;
+
+    /**
+     * 联系方式
+     */
+    private String phone;
 
     /**
      * 处理状态
@@ -36,6 +66,11 @@ public class Problem {
     private int status;
 
     /**
+     * 点击次数
+     */
+    private int clicks;
+
+    /**
      * 上传时间
      */
     private long create_at;
@@ -44,24 +79,52 @@ public class Problem {
         this.content = content;
     }
 
-    public void setCreate_at(long create_at) {
+    public void setCreateTime(long create_at) {
         this.create_at = create_at;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public void setProblemid(int problemid) {
-        this.problemid = problemid;
     }
 
     public void setStatus(int status) {
         this.status = status;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setEstatename(String estatename) {
+        this.estatename = estatename;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPics(String pics) {
+        this.pics = pics;
+    }
+
+    public void setProblemid(int problemid) {
+        this.problemid = problemid;
     }
 
     public int getProblemid() {
@@ -72,7 +135,7 @@ public class Problem {
         return status;
     }
 
-    public long getCreate_at() {
+    public long getCreateTime() {
         return create_at;
     }
 
@@ -80,11 +143,39 @@ public class Problem {
         return content;
     }
 
-    public String getImg() {
-        return img;
+    public String getAddr() {
+        return addr;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getEstatename() {
+        return estatename;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getPics() {
+        return pics;
+    }
+
+    public void setClicks(int clicks) {
+        this.clicks = clicks;
+    }
+
+    public int getClicks() {
+        return clicks;
     }
 }

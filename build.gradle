@@ -3,7 +3,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://raw.githubusercontent.com/jarlen/maven-repo/master/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
@@ -17,7 +16,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://raw.githubusercontent.com/jarlen/maven-repo/master/' }
     }
 }
 

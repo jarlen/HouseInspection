@@ -3,6 +3,7 @@ package cn.jarlen.houseinspection;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
         problemAdapter = new ProblemAdapter(this);
         mRecyclerView.setLoadingListener(this);
         mRecyclerView.setAdapter(problemAdapter);
@@ -55,10 +58,12 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
 
         for(int index = 0;index < 20;index++){
             Problem problem = new Problem();
-            problem.setTitle("测试 "+index);
-            problem.setContent("测试 测试 测试 测试 测试 测试 测试 测试"+index);
-            problem.setCreate_at(1423432345);
+            problem.setContent("测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试"+index);
             problem.setStatus(index %2);
+            problem.setAuthor("测试"+index);
+            problem.setCreateTime(4543322193L);
+            problem.setEstatename("万科城");
+            problem.setPeriod(1);
             data.add(problem);
         }
         problemAdapter.addDataList(data);
