@@ -1,13 +1,25 @@
 package cn.jarlen.houseinspection.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
 
 import cn.jarlen.houseinspection.R;
+import cn.jarlen.houseinspection.base.BaseResponse;
+import cn.jarlen.houseinspection.data.LoginResponse;
 import cn.jarlen.houseinspection.data.User;
+import cn.jarlen.houseinspection.http.OkHttpPatch;
+import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.jarlen.richcommon.ui.BaseActivity;
+import cn.jarlen.richcommon.utils.ToastUtil;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
@@ -24,6 +36,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private TextView loginQQ;
     private TextView loginSina;
+
+    private Gson gson = new Gson();
 
     @Override
     protected int getLayoutId() {
@@ -70,14 +84,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        User.platform = db.getPlatformNname();
-        User.userID = db.getUserId();
-        User.nickName = db.getUserName();
-        User.icon = db.getUserIcon();
+        OkHttpPatch.getOkHttpPatch().login(db, new Callback2() {
+            @Override
+            public void onResponse(String body) {
 
-        User.token = db.getToken();
-        User.expiresIn = db.getExpiresIn();
-        User.expiresTime = db.getExpiresTime();
+                LoginResponse loginResponse = gson.fromJson(body, LoginResponse.class);
+
+                if (loginResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
+                    User.setUserCache(loginResponse.getContent());
+                    finish();
+                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_ACCOUNT_ERROR) {
+                    User.clearCache();
+                    LoginActivity.startLogin(LoginActivity.this);
+                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_PARAM_ERROR) {
+                    ToastUtil.makeToast(LoginActivity.this).setText(loginResponse.getMessage()).show();
+                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_OPT_FAIL) {
+                    ToastUtil.makeToast(LoginActivity.this).setText(loginResponse.getMessage()).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                ToastUtil.makeToast(LoginActivity.this).setText(e.toString()).show();
+            }
+        });
+
     }
 
     @Override
@@ -88,5 +119,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onCancel(Platform platform, int i) {
 
+    }
+
+    public static void startLogin(Context context){
+        Intent loginIntent = new Intent(context,LoginActivity.class);
+        context.startActivity(loginIntent);
     }
 }

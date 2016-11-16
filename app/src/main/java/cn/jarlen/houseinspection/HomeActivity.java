@@ -13,7 +13,9 @@ import butterknife.BindView;
 import cn.jarlen.houseinspection.adapter.ProblemAdapter;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.data.Problem;
+import cn.jarlen.houseinspection.data.User;
 import cn.jarlen.houseinspection.ui.LoginActivity;
+import cn.jarlen.houseinspection.ui.ProblemSubActivity;
 
 public class HomeActivity extends BKBaseActivity implements XRecyclerView.LoadingListener {
 
@@ -37,8 +39,14 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
         showRightImg(R.drawable.add, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(ProblemSubActivity.class, null);
-                startActivity(LoginActivity.class,null);
+
+                if(!User.isUserLogin()){
+                    startActivity(LoginActivity.class,null);
+                    return;
+                }
+
+                startActivity(ProblemSubActivity.class, null);
+
             }
         });
 

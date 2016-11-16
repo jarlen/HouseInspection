@@ -5,6 +5,7 @@ import android.app.Application;
 import com.baidu.mapapi.SDKInitializer;
 import com.tencent.bugly.Bugly;
 
+import cn.jarlen.houseinspection.data.User;
 import cn.jarlen.houseinspection.http.OkHttpPatch;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -21,5 +22,6 @@ public class UIApplication extends Application {
         ShareSDK.initSDK(getApplicationContext());
         Bugly.init(getApplicationContext(),"177cf5e319",false);
         OkHttpPatch.initOkHttpPatch(getApplicationContext());
+        User.initUserCache(getApplicationContext());
     }
 }
