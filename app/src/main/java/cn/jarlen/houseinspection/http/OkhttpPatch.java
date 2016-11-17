@@ -2,11 +2,13 @@ package cn.jarlen.houseinspection.http;
 
 import android.content.Context;
 
+import cn.jarlen.houseinspection.data.ProblemInput;
 import cn.jarlen.houseinspection.data.User;
 import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.sharesdk.framework.PlatformDb;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -77,6 +79,18 @@ public class OkHttpPatch {
         Request request = builder.build();
         Call mCall = mOkHttpClient.newCall(request);
         mCall.enqueue(callback);
+    }
+
+
+    public void submit(ProblemInput input, Callback2 callback){
+
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+
+
+//        RequestBody requestBody = builder.build();
+//        Call mCall = mOkHttpClient.newCall(requestBody);
+//        mCall.enqueue(callback);
     }
 
 
