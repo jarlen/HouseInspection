@@ -87,7 +87,6 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
         if (isLoading) {
             return;
         }
-
         this.mCurrentPage++;
         getData();
     }
@@ -111,15 +110,15 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
                 ProblemResponse.ProblemInfo info = problemResponse.getContent();
                 problemAdapter.addDataList(info.getInfo());
                 mLastNums = info.getNums();
-                if(mLastNums < HttpConstants.PAGE_NUMS_ONE_TIME){
+                if (mLastNums < HttpConstants.PAGE_NUMS_ONE_TIME) {
                     mRecyclerView.noMoreLoading();
                     mRecyclerView.setLoadingMoreEnabled(false);
-                }
-                else{
+                } else {
                     mRecyclerView.setLoadingMoreEnabled(true);
                 }
 
             } else if (problemResponse.getStatus() == BaseResponse.RESPONSE_ERROR_ACCOUNT) {
+                mCurrentPage--;
                 User.clearCache();
                 ToastUtil.makeToast(HomeActivity.this).setText(problemResponse.getMessage()).show();
                 LoginActivity.startLogin(HomeActivity.this);
@@ -137,7 +136,7 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
             isLoading = false;
             mRecyclerView.refreshComplete();
             mRecyclerView.loadMoreComplete();
-            if(problemAdapter != null){
+            if (problemAdapter != null) {
                 problemAdapter.clearDataList();
             }
 
