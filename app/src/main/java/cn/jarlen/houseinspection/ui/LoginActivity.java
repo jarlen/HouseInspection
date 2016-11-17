@@ -7,15 +7,12 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.Map;
 
 import cn.jarlen.houseinspection.R;
-import cn.jarlen.houseinspection.base.BaseResponse;
-import cn.jarlen.houseinspection.data.LoginResponse;
 import cn.jarlen.houseinspection.data.User;
+import cn.jarlen.houseinspection.http.BaseResponse;
+import cn.jarlen.houseinspection.http.LoginResponse;
 import cn.jarlen.houseinspection.http.OkHttpPatch;
 import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.jarlen.richcommon.ui.BaseActivity;
@@ -93,10 +90,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (loginResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
                     User.setUserCache(loginResponse.getContent());
                     finish();
-                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_ACCOUNT_ERROR) {
+                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_ERROR_ACCOUNT) {
                     User.clearCache();
+                    ToastUtil.makeToast(LoginActivity.this).setText(loginResponse.getMessage()).show();
                     LoginActivity.startLogin(LoginActivity.this);
-                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_PARAM_ERROR) {
+                } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_ERROR_PARAM) {
                     ToastUtil.makeToast(LoginActivity.this).setText(loginResponse.getMessage()).show();
                 } else if (loginResponse.getStatus() == BaseResponse.RESPONSE_OPT_FAIL) {
                     ToastUtil.makeToast(LoginActivity.this).setText(loginResponse.getMessage()).show();
@@ -121,8 +119,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     }
 
-    public static void startLogin(Context context){
-        Intent loginIntent = new Intent(context,LoginActivity.class);
+    public static void startLogin(Context context) {
+        Intent loginIntent = new Intent(context, LoginActivity.class);
         context.startActivity(loginIntent);
     }
 }
