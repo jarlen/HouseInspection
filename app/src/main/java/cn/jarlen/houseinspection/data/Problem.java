@@ -30,7 +30,7 @@ public class Problem {
     /**
      * 楼盘地址
      */
-    private String addr;
+    private String estateaddr;
 
     /**
      * 位置-经度
@@ -87,8 +87,8 @@ public class Problem {
         this.status = status;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setEstateAddr(String addr) {
+        this.estateaddr = addr;
     }
 
     public void setAuthor(String author) {
@@ -143,8 +143,8 @@ public class Problem {
         return content;
     }
 
-    public String getAddr() {
-        return addr;
+    public String getEstateAddr() {
+        return estateaddr;
     }
 
     public String getAuthor() {
