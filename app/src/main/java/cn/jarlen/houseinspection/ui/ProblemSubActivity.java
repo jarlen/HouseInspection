@@ -7,11 +7,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 import butterknife.BindView;
 import cn.jarlen.houseinspection.R;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.data.ProblemSubmit;
 import cn.jarlen.houseinspection.data.User;
+import cn.jarlen.houseinspection.http.BaseResponse;
+import cn.jarlen.houseinspection.http.OkHttpPatch;
+import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.jarlen.richcommon.utils.ToastUtil;
 
 /**
@@ -54,7 +60,13 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
     @BindView(R.id.anonCB)
     CheckBox anonCB;
 
+    @BindView(R.id.addImages)
+    XRecyclerView addImages;
+
     private ProblemSubmit submitData;
+    private boolean isLoading = false;
+
+    private Gson gson = new Gson();
 
 
     @Override
@@ -112,9 +124,29 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
             return false;
         }
 
-        submitData.setContent(problemDesc.getText().toString());
+        submitData.setDescribe(problemDesc.getText().toString());
 
+        if (!TextUtils.isEmpty(houseBuilding.getText())) {
+            submitData.setBuildingNo(houseBuilding.getText().toString());
+        }
 
+        if (!TextUtils.isEmpty(houseBuildingUnit.getText())) {
+            submitData.setBuildingUnit(houseBuildingUnit.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(houseRoomNo.getText())) {
+            submitData.setRoomNo(houseRoomNo.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(submitterName.getText())) {
+            submitData.setContactor(submitterName.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(submitterPhone.getText())) {
+            submitData.setPhone(submitterPhone.getText().toString());
+        }
+
+        submitData.setAnon(anonCB.isChecked());
         return true;
     }
 
@@ -125,14 +157,48 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
                 startActivity(LoactionChooseActivity.class, null);
                 break;
             case R.id.submit:
-                if (!preSubmit()) {
+
+                if(!User.isUserLogin()){
+                    LoginActivity.startLogin(this);
                     return;
                 }
 
+                if(isLoading){
+                    ToastUtil.makeToast(this).setText("正在提交中...").show();
+                    return;
+                }
+
+                if (!preSubmit()) {
+                    return;
+                }
+                isLoading = true;
+                OkHttpPatch.getOkHttpPatch().submit(submitData, callback2);
                 break;
             default:
 
                 break;
         }
     }
+
+    private Callback2 callback2 = new Callback2() {
+        @Override
+        public void onResponse(String body) {
+            isLoading = false;
+
+            BaseResponse baseResponse = gson.fromJson(body,BaseResponse.class);
+            if(baseResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS){
+                ToastUtil.makeToast(ProblemSubActivity.this).setText("提交成功").show();
+
+            }
+            else{
+                ToastUtil.makeToast(ProblemSubActivity.this).setText(baseResponse.getMessage()).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Exception e) {
+            isLoading = false;
+            ToastUtil.makeToast(ProblemSubActivity.this).setText(e.getMessage()).show();
+        }
+    };
 }

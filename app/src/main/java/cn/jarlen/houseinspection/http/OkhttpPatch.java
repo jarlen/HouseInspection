@@ -1,6 +1,10 @@
 package cn.jarlen.houseinspection.http;
 
 import android.content.Context;
+import android.text.TextUtils;
+
+import java.io.File;
+import java.util.List;
 
 import cn.jarlen.houseinspection.data.ProblemSubmit;
 import cn.jarlen.houseinspection.data.User;
@@ -8,6 +12,7 @@ import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.sharesdk.framework.PlatformDb;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -90,11 +95,67 @@ public class OkHttpPatch {
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
+        builder.addFormDataPart("a","submit");
+        builder.addFormDataPart("token",User.getUserCache().getToken());
+        builder.addFormDataPart("estate_name",input.getEstateName());
 
+        if(!TextUtils.isEmpty(input.getEstateAddr())){
+            builder.addFormDataPart("addr",input.getEstateName());
+        }
 
-//        RequestBody requestBody = builder.build();
-//        Call mCall = mOkHttpClient.newCall(requestBody);
-//        mCall.enqueue(callback);
+        builder.addFormDataPart("lat",""+input.getLatitude());
+        builder.addFormDataPart("lon",""+input.getLongitude());
+
+        if(!TextUtils.isEmpty(input.getEstatePeriod())){
+            builder.addFormDataPart("period",""+input.getEstatePeriod());
+        }
+
+        if(!TextUtils.isEmpty(input.getBuildingNo())){
+            builder.addFormDataPart("building",""+input.getBuildingNo());
+        }
+
+        if(!TextUtils.isEmpty(input.getBuildingUnit())){
+            builder.addFormDataPart("unit",""+input.getBuildingUnit());
+        }
+
+        if(!TextUtils.isEmpty(input.getRoomNo())){
+            builder.addFormDataPart("roomno",""+input.getRoomNo());
+        }
+
+        if(!TextUtils.isEmpty(input.getDescribe())){
+            builder.addFormDataPart("desc",""+input.getDescribe());
+        }
+
+        if(!TextUtils.isEmpty(input.getPhone())){
+            builder.addFormDataPart("phone",""+input.getPhone());
+        }
+
+        if(!TextUtils.isEmpty(input.getContactor())){
+            builder.addFormDataPart("contactor",input.getContactor());
+        }
+
+        builder.addFormDataPart("anon",""+(input.getAnon()?1:0));
+
+        List<String> mImgUrls = input.getPics();
+
+        if (mImgUrls != null) {
+            int length = mImgUrls.size();
+            for (int index = 0; index < length; index++) {
+                File file = new File(mImgUrls.get(index));
+                if (file.exists()) {
+                    builder.addFormDataPart("img" + index, file.getName(), RequestBody.create(MediaType.parse("image/png"), file));
+                }
+            }
+        }
+
+        MultipartBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(HttpConstants.BASE_URL)
+                .post(requestBody)
+                .build();
+
+        Call mCall = mOkHttpClient.newCall(request);
+        mCall.enqueue(callback);
     }
 
 

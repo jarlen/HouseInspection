@@ -20,7 +20,7 @@ public class Problem {
     /**
      * 问题描述
      */
-    private String content;
+    private String describe;
 
     /**
      * 楼盘名称
@@ -75,8 +75,21 @@ public class Problem {
      */
     private long create_at;
 
-    public void setContent(String content) {
-        this.content = content;
+    /**
+     * "1"=匿名
+     */
+    private String anon;
+
+    public void setAnon(String anon) {
+        this.anon = anon;
+    }
+
+    public String getAnon() {
+        return anon;
+    }
+
+    public void setDescribe(String content) {
+        this.describe = content;
     }
 
     public void setCreateTime(long create_at) {
@@ -139,8 +152,8 @@ public class Problem {
         return create_at;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescribe() {
+        return describe;
     }
 
     public String getEstateAddr() {

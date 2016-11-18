@@ -105,8 +105,11 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
             mRecyclerView.loadMoreComplete();
 
             ProblemResponse problemResponse = gson.fromJson(body, ProblemResponse.class);
-            if (problemResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
 
+            if (problemResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
+                if(mCurrentPage == 0){
+                    problemAdapter.clearDataList();
+                }
                 ProblemResponse.ProblemInfo info = problemResponse.getContent();
                 problemAdapter.addDataList(info.getInfo());
                 mLastNums = info.getNums();

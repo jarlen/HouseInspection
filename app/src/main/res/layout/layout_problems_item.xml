@@ -27,7 +27,7 @@
                 android:gravity="left|center"
                 android:lines="2"
                 android:maxWidth="280dp"
-                android:text="万科物业使用的住这儿"
+                android:text=""
                 android:textSize="@dimen/size3" />
 
             <TextView
@@ -35,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/problem_title"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/shape_problem_other"
                 android:gravity="center"
                 android:padding="1dp"

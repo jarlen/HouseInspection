@@ -1,6 +1,5 @@
 package cn.jarlen.houseinspection.data;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -26,13 +25,33 @@ public class ProblemSubmit {
 
     public String roomNo;
 
-    public String content;
+    public String describe;
+
+    public String contactor;
+
+    public boolean anon;
 
     public String phone;
 
-    public List<File> pics;
+    public List<String> pics;
 
-    public void setPics(List<File> pics) {
+    public void setAnon(boolean anon) {
+        this.anon = anon;
+    }
+
+    public boolean getAnon() {
+        return anon;
+    }
+
+    public void setContactor(String contactor) {
+        this.contactor = contactor;
+    }
+
+    public String getContactor() {
+        return contactor;
+    }
+
+    public void setPics(List<String> pics) {
         this.pics = pics;
     }
 
@@ -42,10 +61,6 @@ public class ProblemSubmit {
 
     public void setBuildingUnit(String buildingUnit) {
         this.buildingUnit = buildingUnit;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public void setEstateAddr(String estateAddr) {
@@ -84,7 +99,7 @@ public class ProblemSubmit {
         return longitude;
     }
 
-    public List<File> getPics() {
+    public List<String> getPics() {
         return pics;
     }
 
@@ -96,8 +111,12 @@ public class ProblemSubmit {
         return buildingUnit;
     }
 
-    public String getContent() {
-        return content;
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
+    public String getDescribe() {
+        return describe;
     }
 
     public String getEstateAddr() {

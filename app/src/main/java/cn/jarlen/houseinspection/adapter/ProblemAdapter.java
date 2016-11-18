@@ -30,7 +30,7 @@ public class ProblemAdapter extends RvCommonAdapter<Problem> {
 
         TextView time = viewHolder.getView(R.id.time);
 
-        problemTitle.setText(item.getContent());
+        problemTitle.setText(item.getDescribe());
         switch (item.getStatus()) {
             case 0:
                 problemStatusTag.setBackgroundResource(R.drawable.shape_problem_unsolved);
