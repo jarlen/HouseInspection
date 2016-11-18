@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,19 +15,30 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:lines="1"
-            android:textSize="@dimen/size3"
-            android:text="联系人:" />
+            android:text="联系人:"
+            android:textColor="@color/color6"
+            android:textSize="@dimen/size3" />
 
         <EditText
             android:id="@+id/submitter_name"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/shape_et_bg"
             android:gravity="left|center"
             android:hint="张三"
             android:paddingLeft="8dp"
-            android:textSize="@dimen/size3"
-            android:background="@drawable/shape_et_bg"
+            android:textColor="@color/color6"
+            android:textSize="@dimen/size3" />
+
+        <CheckBox
+            android:id="@+id/anonCB"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="1"
+            android:text="匿名"
+            android:textColor="@color/color6"
+            android:textSize="@dimen/size3" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,19 +52,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:lines="1"
-            android:textSize="@dimen/size3"
-            android:text="联系方式:" />
+            android:text="联系方式:"
+            android:textColor="@color/color6"
+            android:textSize="@dimen/size3" />
 
         <EditText
-            android:id="@+id/submitter_contact"
+            android:id="@+id/submitter_phone"
             android:layout_width="0dp"
-            android:paddingLeft="8dp"
-            android:hint="QQ、手机号或不填"
-            android:gravity="left|center"
-            android:textSize="@dimen/size3"
-            android:background="@drawable/shape_et_bg"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:background="@drawable/shape_et_bg"
+            android:gravity="left|center"
+            android:hint="QQ、手机号或不填"
+            android:paddingLeft="8dp"
+            android:textColor="@color/color6"
+            android:textSize="@dimen/size3" />
     </LinearLayout>
 
 </LinearLayout>

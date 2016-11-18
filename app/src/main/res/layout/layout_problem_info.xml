@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:gravity="left|center"
+        android:textColor="@color/color6"
         android:background="@drawable/shape_et_bg"
-        android:hint="一段话描述您所遇见的问题,方便后期参考"
+        android:hint="一段话描述您所遇见的问题(不少于20字)"
         android:minHeight="100dp"
         android:textColorHint="@color/color8"
         android:textSize="@dimen/size3" />

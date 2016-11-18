@@ -2,7 +2,7 @@ package cn.jarlen.houseinspection.http;
 
 import android.content.Context;
 
-import cn.jarlen.houseinspection.data.ProblemInput;
+import cn.jarlen.houseinspection.data.ProblemSubmit;
 import cn.jarlen.houseinspection.data.User;
 import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.sharesdk.framework.PlatformDb;
@@ -66,12 +66,16 @@ public class OkHttpPatch {
     }
 
     public void findproblem(int page, Callback2 callback) {
-        RequestBody requestBody = new FormBody.Builder()
-                .add("a", "findproblem")
-                .add("page_num", "" + page)
-                .add("token", User.getUserCache().getToken())
-                .add("page_size", "" + HttpConstants.PAGE_NUMS_ONE_TIME)
-                .build();
+
+        FormBody.Builder bodyBuilder = new FormBody.Builder();
+        bodyBuilder.add("a", "findproblem");
+        bodyBuilder.add("page_num", "" + page);
+        bodyBuilder.add("page_size", "" + HttpConstants.PAGE_NUMS_ONE_TIME);
+        if (User.isUserLogin()) {
+            bodyBuilder.add("token", User.getUserCache().getToken());
+        }
+
+        RequestBody requestBody = bodyBuilder.build();
 
         Request.Builder builder = new Request.Builder();
         builder.url(HttpConstants.BASE_URL);
@@ -82,7 +86,7 @@ public class OkHttpPatch {
     }
 
 
-    public void submit(ProblemInput input, Callback2 callback){
+    public void submit(ProblemSubmit input, Callback2 callback) {
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);

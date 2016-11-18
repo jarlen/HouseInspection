@@ -8,7 +8,7 @@ import java.util.List;
  * Created by hjl on 2016/11/17.
  */
 
-public class ProblemInput {
+public class ProblemSubmit {
 
     public String estateAddr;
 
