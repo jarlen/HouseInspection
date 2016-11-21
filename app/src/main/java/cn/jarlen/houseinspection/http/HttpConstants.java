@@ -7,7 +7,11 @@ package cn.jarlen.houseinspection.http;
 
 public class HttpConstants {
 
-    public static final String BASE_URL = "http://192.168.18.100/hi/api.php";
+    private static final String BASE_URL = "http://192.168.18.100/hi/";
+
+    public static final String API_URL = BASE_URL + "api.php";
+
+    public static final String IMAGE_URL = BASE_URL + "Uploads";
 
     /**
      * 每页获取个数

@@ -1,17 +1,29 @@
 package cn.jarlen.houseinspection.ui;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import cn.jarlen.houseinspection.R;
+import cn.jarlen.houseinspection.adapter.ImagesAdapter;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.data.ProblemSubmit;
 import cn.jarlen.houseinspection.data.User;
@@ -19,6 +31,7 @@ import cn.jarlen.houseinspection.http.BaseResponse;
 import cn.jarlen.houseinspection.http.OkHttpPatch;
 import cn.jarlen.httppatch.okhttp.Callback2;
 import cn.jarlen.richcommon.utils.ToastUtil;
+import me.nereo.multi_image_selector.MultiImageSelector;
 
 /**
  * DESCRIBE:
@@ -60,13 +73,18 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
     @BindView(R.id.anonCB)
     CheckBox anonCB;
 
-    @BindView(R.id.addImages)
-    XRecyclerView addImages;
+    @BindView(R.id.recycleView)
+    RecyclerView imageRecycleView;
 
     private ProblemSubmit submitData;
     private boolean isLoading = false;
 
     private Gson gson = new Gson();
+
+    private final int maxNumber = 3;
+    private ImagesAdapter imagesAdapter;
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
+    private static final int REQUEST_IMAGE = 2;
 
 
     @Override
@@ -77,9 +95,30 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
         getLocation.setOnClickListener(this);
         submitterName.setText(User.getUserCache().getUserName());
         houseArea.setText("万科城");
+        houseArea.setSelection("万科城".length());
         housePeriod.setText("" + 1);
 
-        Log.e("jarlen", "" + (System.currentTimeMillis() - time));
+        imageRecycleView.setLayoutManager(new GridLayoutManager(this, maxNumber));
+        imagesAdapter = new ImagesAdapter(this, maxNumber);
+        imageRecycleView.setAdapter(imagesAdapter);
+        imagesAdapter.setOnItemClickListener(new ImagesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (position == imagesAdapter.getItemCount() - 1) {
+                    pickImage();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("image",imagesAdapter.getData().get(position));
+                    startActivity(PhotoViewActivity.class,bundle);
+                }
+            }
+        });
+        imagesAdapter.setmOnItemRemoveListener(new ImagesAdapter.OnItemRemoveListener() {
+            @Override
+            public void onItemRemove(int position) {
+                imagesAdapter.removeImage(position);
+            }
+        });
     }
 
     @Override
@@ -125,6 +164,9 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
         }
 
         submitData.setDescribe(problemDesc.getText().toString());
+        List<String> tempPics = imagesAdapter.getData();
+
+        submitData.setPics(tempPics);
 
         if (!TextUtils.isEmpty(houseBuilding.getText())) {
             submitData.setBuildingNo(houseBuilding.getText().toString());
@@ -158,12 +200,12 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
                 break;
             case R.id.submit:
 
-                if(!User.isUserLogin()){
+                if (!User.isUserLogin()) {
                     LoginActivity.startLogin(this);
                     return;
                 }
 
-                if(isLoading){
+                if (isLoading) {
                     ToastUtil.makeToast(this).setText("正在提交中...").show();
                     return;
                 }
@@ -185,12 +227,11 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
         public void onResponse(String body) {
             isLoading = false;
 
-            BaseResponse baseResponse = gson.fromJson(body,BaseResponse.class);
-            if(baseResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS){
+            BaseResponse baseResponse = gson.fromJson(body, BaseResponse.class);
+            if (baseResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
                 ToastUtil.makeToast(ProblemSubActivity.this).setText("提交成功").show();
 
-            }
-            else{
+            } else {
                 ToastUtil.makeToast(ProblemSubActivity.this).setText(baseResponse.getMessage()).show();
             }
         }
@@ -201,4 +242,55 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
             ToastUtil.makeToast(ProblemSubActivity.this).setText(e.getMessage()).show();
         }
     };
+
+    private void pickImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in APIConstants Level 16
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getString(R.string.permission_rationale),
+                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+        } else {
+
+            ArrayList<String> data = (ArrayList<String>) imagesAdapter.getData();
+
+            MultiImageSelector selector = MultiImageSelector.create(ProblemSubActivity.this);
+            selector.showCamera(true);
+            selector.count(maxNumber);
+            selector.multi();
+            selector.origin(data);
+            selector.start(ProblemSubActivity.this, REQUEST_IMAGE);
+        }
+    }
+
+    private void requestPermission(final String permission, String rationale, final int requestCode) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.permission_dialog_title)
+                    .setMessage(rationale)
+                    .setPositiveButton(R.string.permission_dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(ProblemSubActivity.this, new String[]{permission}, requestCode);
+                        }
+                    })
+                    .setNegativeButton(R.string.permission_dialog_cancel, null)
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_IMAGE) {
+            ArrayList<String> temp = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+            imagesAdapter.addImages(temp);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

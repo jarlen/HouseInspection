@@ -34,9 +34,9 @@
                 android:id="@+id/problem_status_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
                 android:background="@drawable/shape_problem_other"
                 android:gravity="center"
                 android:padding="1dp"
@@ -48,9 +48,32 @@
         <LinearLayout
             android:id="@+id/problem_imgs"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="#FF0000"
-            android:orientation="vertical">
+            android:layout_height="120dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_one"
+                android:layout_width="0dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/image_two"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/image_three"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -58,18 +81,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:orientation="horizontal">
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/problem_period"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="@dimen/size4"
                 android:gravity="left|center_vertical"
-                android:text="万科一期" />
+                android:text="万科一期"
+                android:textSize="@dimen/size4" />
 
             <TextView
                 android:id="@+id/author"
@@ -77,8 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
-                android:textSize="@dimen/size4"
-                android:text="jarlen" />
+                android:text="jarlen"
+                android:textSize="@dimen/size4" />
 
             <TextView
                 android:id="@+id/click_times"
@@ -86,17 +109,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
-                android:textSize="@dimen/size4"
-                android:text="点击520次" />
+                android:text="点击520次"
+                android:textSize="@dimen/size4" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="@dimen/size4"
                 android:gravity="left|center_vertical"
-                android:text="2016-10-27" />
+                android:text="2016-10-27"
+                android:textSize="@dimen/size4" />
 
         </LinearLayout>
 

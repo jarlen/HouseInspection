@@ -63,7 +63,7 @@ public class OkHttpPatch {
                 .add("expires_time", "" + platform.getExpiresTime())
                 .build();
         Request.Builder builder = new Request.Builder();
-        builder.url(HttpConstants.BASE_URL);
+        builder.url(HttpConstants.API_URL);
         builder.post(requestBody);
         Request request = builder.build();
         Call mCall = mOkHttpClient.newCall(request);
@@ -83,7 +83,7 @@ public class OkHttpPatch {
         RequestBody requestBody = bodyBuilder.build();
 
         Request.Builder builder = new Request.Builder();
-        builder.url(HttpConstants.BASE_URL);
+        builder.url(HttpConstants.API_URL);
         builder.post(requestBody);
         Request request = builder.build();
         Call mCall = mOkHttpClient.newCall(request);
@@ -150,7 +150,7 @@ public class OkHttpPatch {
 
         MultipartBody requestBody = builder.build();
         Request request = new Request.Builder()
-                .url(HttpConstants.BASE_URL)
+                .url(HttpConstants.API_URL)
                 .post(requestBody)
                 .build();
 

@@ -18,6 +18,11 @@ public class Problem {
     private String pics;
 
     /**
+     * 问题场景照片(缩略)
+     */
+    private String thumbs;
+
+    /**
      * 问题描述
      */
     private String describe;
@@ -79,6 +84,14 @@ public class Problem {
      * "1"=匿名
      */
     private String anon;
+
+    public String getThumbs() {
+        return thumbs;
+    }
+
+    public void setThumbs(String thumbs) {
+        this.thumbs = thumbs;
+    }
 
     public void setAnon(String anon) {
         this.anon = anon;

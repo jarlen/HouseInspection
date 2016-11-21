@@ -46,7 +46,7 @@ public class HomeActivity extends BKBaseActivity implements XRecyclerView.Loadin
 
     @Override
     protected void onBKBindView() {
-        showRightImg(R.drawable.add, new View.OnClickListener() {
+        showRightImg(R.drawable.submit, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

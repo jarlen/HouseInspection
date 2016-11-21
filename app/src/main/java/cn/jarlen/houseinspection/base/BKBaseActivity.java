@@ -103,7 +103,7 @@ public abstract class BKBaseActivity extends BaseActivity {
         menuRightTv.setOnClickListener(null);
     }
 
-    protected void startActivity(Class<?> activity, Bundle args){
+    public void startActivity(Class<?> activity, Bundle args){
         Intent intent = new Intent(this,activity);
         if(args != null){
             intent.putExtras(args);
