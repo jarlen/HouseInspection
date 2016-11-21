@@ -26,9 +26,13 @@
 
             <Button
                 android:id="@+id/submit"
+                android:background="@drawable/shape_btn"
                 android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="@dimen/size3"
+                android:textColor="@color/color11"
                 android:text="提交" />
 
         </LinearLayout>
