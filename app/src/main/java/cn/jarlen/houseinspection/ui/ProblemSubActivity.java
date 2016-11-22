@@ -93,7 +93,12 @@ public class ProblemSubActivity extends BKBaseActivity implements View.OnClickLi
         showTitleView(R.string.problem_submit);
         findViewById(R.id.submit).setOnClickListener(this);
         getLocation.setOnClickListener(this);
-        submitterName.setText(User.getUserCache().getUserName());
+
+        User user = User.getUserCache();
+        if(user != null && !TextUtils.isEmpty(user.getUserName())){
+            submitterName.setText(user.getUserName());
+        }
+
         houseArea.setText("万科城");
         houseArea.setSelection("万科城".length());
         housePeriod.setText("" + 1);

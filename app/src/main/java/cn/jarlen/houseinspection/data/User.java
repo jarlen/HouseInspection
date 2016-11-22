@@ -99,7 +99,7 @@ public class User {
     /**
      * 用户头像
      */
-    private String avatar;
+    private String avatar = "";
 
     /**
      * 授权token

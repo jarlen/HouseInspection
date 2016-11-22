@@ -93,7 +93,7 @@ public class ProblemAdapter extends RvCommonAdapter<Problem> {
                         activity.startActivity(PhotoViewActivity.class, bundle);
                     }
                 });
-                Glide.with(mContext)
+                Glide.with(mContext.getApplicationContext())
                         .load(HttpConstants.IMAGE_URL + imgs[0])
                         .placeholder(R.drawable.icon_default)
                         .into(imageOne);
@@ -109,7 +109,7 @@ public class ProblemAdapter extends RvCommonAdapter<Problem> {
                         activity.startActivity(PhotoViewActivity.class, bundle);
                     }
                 });
-                Glide.with(mContext)
+                Glide.with(mContext.getApplicationContext())
                         .load(HttpConstants.IMAGE_URL + imgs[1])
                         .placeholder(R.drawable.icon_default)
                         .into(imageTwo);
@@ -125,7 +125,7 @@ public class ProblemAdapter extends RvCommonAdapter<Problem> {
                         activity.startActivity(PhotoViewActivity.class, bundle);
                     }
                 });
-                Glide.with(mContext)
+                Glide.with(mContext.getApplicationContext())
                         .load(HttpConstants.IMAGE_URL + imgs[2])
                         .placeholder(R.drawable.icon_default)
                         .into(imageThree);
