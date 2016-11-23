@@ -3,6 +3,7 @@ package cn.jarlen.houseinspection.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -43,6 +44,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void onBindView() {
+        findViewById(R.id.bg).setOnClickListener(this);
         loginSina = (TextView) findViewById(R.id.login_sina);
         loginSina.setOnClickListener(this);
         loginQQ = (TextView) findViewById(R.id.login_qq);
@@ -50,8 +52,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    protected void preBindView() {
+    public void onBackPressed() {
+        overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
+        super.onBackPressed();
+    }
 
+    @Override
+    protected void preBindView() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
     }
 
     @Override
@@ -67,6 +76,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
                 sina.setPlatformActionListener(this);
                 sina.showUser(null);
+                break;
+            case R.id.bg:
+                    finish();
                 break;
             default:
 

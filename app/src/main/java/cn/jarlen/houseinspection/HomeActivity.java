@@ -38,7 +38,7 @@ public class HomeActivity extends BKBaseActivity implements RadioGroup.OnChecked
 
     @Override
     protected void onBKBindView() {
-
+        FragmentStack.setCustomAnimations(R.anim.anim_fade_in,R.anim.anim_fade_out);
         menuGroup.setOnCheckedChangeListener(this);
         menuSubmit.setOnClickListener(this);
 
