@@ -3,6 +3,10 @@ package cn.jarlen.houseinspection.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.jarlen.houseinspection.data.Problem;
 import cn.jarlen.richcommon.adapter.RvViewHolder;
 import cn.jarlen.richcommon.adapter.multiple.BaseRvMultiItemView;
@@ -12,7 +16,7 @@ import cn.jarlen.richcommon.adapter.multiple.BaseRvMultiItemView;
  * Created by hjl on 2017/1/12.
  */
 
-public class BannerView extends BaseRvMultiItemView<Problem> {
+public class BannerView extends BaseRvMultiItemView<JSONObject> {
 
     public BannerView(Context context) {
         super(context);
@@ -24,12 +28,19 @@ public class BannerView extends BaseRvMultiItemView<Problem> {
     }
 
     @Override
-    protected void onBindView(RvViewHolder viewHolder, Problem item) {
+    protected void onBindView(RvViewHolder viewHolder, JSONObject item) {
 
     }
 
     @Override
-    protected boolean isForViewType(@NonNull Problem item, int position) {
+    protected boolean isForViewType(@NonNull JSONObject item, int position) {
+        if (item.has("type")) {
+            try {
+                return "banner".equals(item.getString("type"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 }

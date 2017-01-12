@@ -13,6 +13,11 @@ public class Problem {
     private int problemid;
 
     /**
+     * 数据类型
+     */
+    private String type;
+
+    /**
      * 问题场景照片
      */
     private String pics;
