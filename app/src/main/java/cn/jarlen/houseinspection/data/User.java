@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import cn.jarlen.houseinspection.http.OkHttpPatch;
 import cn.jarlen.houseinspection.utils.Constants;
-import cn.jarlen.richcommon.utils.PreferenceUtils;
+import cn.jarlen.richcommon.utils.SpUtils;
 
 /**
  * DESCRIBE: 授权用户数据
@@ -20,7 +20,7 @@ public class User {
 
     public static void setUserCache(User user) {
         cache = user;
-        PreferenceUtils preferenceUtils = PreferenceUtils.newInstance(OkHttpPatch.getContext(), Constants.KEY_USER);
+        SpUtils preferenceUtils = SpUtils.newInstance(OkHttpPatch.getContext(), Constants.KEY_USER);
         preferenceUtils.addMess("user_id", user.getUserId());
         preferenceUtils.addMess("token", user.getToken());
         preferenceUtils.addMess("platfrom", user.getPlatform());
@@ -31,7 +31,7 @@ public class User {
     }
 
     public static void initUserCache(Context context) {
-        PreferenceUtils preferenceUtils = PreferenceUtils.newInstance(context, Constants.KEY_USER);
+        SpUtils preferenceUtils = SpUtils.newInstance(context, Constants.KEY_USER);
 
         String userId = preferenceUtils.getMessString("user_id", "");
         String token = preferenceUtils.getMessString("token", "");
@@ -65,7 +65,7 @@ public class User {
 
     public static void clearCache() {
         cache = null;
-        PreferenceUtils preferenceUtils = PreferenceUtils.newInstance(OkHttpPatch.getContext(), Constants.KEY_USER);
+        SpUtils preferenceUtils = SpUtils.newInstance(OkHttpPatch.getContext(), Constants.KEY_USER);
         preferenceUtils.deteletMess();
     }
 

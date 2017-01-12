@@ -105,7 +105,7 @@ public class ImagesAdapter extends RvCommonAdapter<String> {
     }
 
     @Override
-    public int getLayoutResId() {
+    public int getLayoutResId(int viewType) {
         return R.layout.image_item;
     }
 

@@ -35,7 +35,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'cn.jarlen.maven:richcommon:1.2.3'
+    compile 'cn.jarlen.maven:richcommon:1.2.7'
     compile 'cn.jarlen.maven:okhttp-patch:3.4.2'
     compile 'com.android.support:cardview-v7:23.0.0'
     compile 'com.jakewharton:butterknife:8.4.0'
