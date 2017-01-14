@@ -36,7 +36,7 @@ public class BannerView extends BaseRvMultiItemView<JSONObject> {
     protected boolean isForViewType(@NonNull JSONObject item, int position) {
         if (item.has("type")) {
             try {
-                return "banner".equals(item.getString("type"));
+                return "ad".equals(item.getString("type"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

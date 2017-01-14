@@ -187,8 +187,8 @@ public class ProblemView extends BaseRvMultiItemView<JSONObject> {
                         .into(imageThree);
             }
         } else {
-            imageOne.setVisibility(View.VISIBLE);
-            imageOne.setBackgroundColor(Color.parseColor("0xFF0000"));
+            imageOne.setVisibility(View.GONE);
+            imageOne.setBackgroundColor(Color.TRANSPARENT);
         }
 
         problemPeriod.setText(period);

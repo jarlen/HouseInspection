@@ -3,8 +3,17 @@ package cn.jarlen.houseinspection.ui;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import cn.jarlen.houseinspection.R;
@@ -87,34 +96,42 @@ public class ProblemFragment extends BKBaseFragment implements XRecyclerView.Loa
             mRecyclerView.refreshComplete();
             mRecyclerView.loadMoreComplete();
 
-            ProblemResponse problemResponse = gson.fromJson(body, ProblemResponse.class);
+            try {
+                JSONObject jsonObject = new JSONObject(body);
+                int status = jsonObject.getInt("status");
+                String msg = jsonObject.getString("message");
 
-            if (problemResponse.getStatus() == BaseResponse.RESPONSE_OPT_SUCCESS) {
-                if(mCurrentPage == 0){
-                    problemAdapter.clearDataList();
-                }
-                ProblemResponse.ProblemInfo info = problemResponse.getContent();
-                problemAdapter.addDataList(info.getInfo());
-                mLastNums = info.getNums();
-                if (mLastNums < HttpConstants.PAGE_NUMS_ONE_TIME) {
-                    mRecyclerView.noMoreLoading();
-                    mRecyclerView.setLoadingMoreEnabled(false);
-                } else {
-                    mRecyclerView.setLoadingMoreEnabled(true);
-                }
+                if(status == BaseResponse.RESPONSE_OPT_SUCCESS){
+                    if(mCurrentPage == 0){
+                        problemAdapter.clearDataList();
+                    }
+                    JSONObject content = jsonObject.getJSONObject("content");
+                    JSONArray info = content.getJSONArray("info");
 
-            } else if (problemResponse.getStatus() == BaseResponse.RESPONSE_ERROR_ACCOUNT) {
-                mCurrentPage--;
-                User.clearCache();
-                ToastUtil.makeToast(getActivity()).setText(problemResponse.getMessage()).show();
-                LoginActivity.startLogin(getActivity());
-            } else if (problemResponse.getStatus() == BaseResponse.RESPONSE_ERROR_PARAM) {
-                ToastUtil.makeToast(getActivity()).setText(problemResponse.getMessage()).show();
-            } else if (problemResponse.getStatus() == BaseResponse.RESPONSE_OPT_FAIL) {
-                ToastUtil.makeToast(getActivity()).setText(problemResponse.getMessage()).show();
+                    problemAdapter.addDataList(toJSONObject(info));
+                    mLastNums = content.getInt("nums");
+                    if (mLastNums < HttpConstants.PAGE_NUMS_ONE_TIME) {
+                        mRecyclerView.noMoreLoading();
+                        mRecyclerView.setLoadingMoreEnabled(false);
+                    } else {
+                        mRecyclerView.setLoadingMoreEnabled(true);
+                    }
+
+                }
+                else if(status == BaseResponse.RESPONSE_ERROR_ACCOUNT){
+                    mCurrentPage--;
+                    User.clearCache();
+                    ToastUtil.makeToast(getActivity()).setText(msg).show();
+                    LoginActivity.startLogin(getActivity());
+                }
+                else if (status == BaseResponse.RESPONSE_ERROR_PARAM) {
+                    ToastUtil.makeToast(getActivity()).setText(msg).show();
+                } else if (status == BaseResponse.RESPONSE_OPT_FAIL) {
+                    ToastUtil.makeToast(getActivity()).setText(msg).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-
         }
 
         @Override
@@ -128,4 +145,19 @@ public class ProblemFragment extends BKBaseFragment implements XRecyclerView.Loa
 
         }
     };
+
+
+    private List<JSONObject> toJSONObject(JSONArray array){
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        try {
+            int length = array.length();
+            for(int index = 0;index < length;index++){
+                JSONObject object = array.getJSONObject(index);
+                list.add(object);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -134,7 +134,7 @@ public class OkHttpPatch {
             builder.addFormDataPart("contactor",input.getContactor());
         }
 
-        builder.addFormDataPart("anon",""+(input.getAnon()?1:0));
+        builder.addFormDataPart("anon",""+input.getAnon());
 
         List<String> mImgUrls = input.getPics();
 
