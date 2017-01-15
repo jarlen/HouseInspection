@@ -28,6 +28,7 @@ public class User {
         preferenceUtils.addMess("avatar", user.getAvatar());
         preferenceUtils.addMess("expires_in", user.getExpiresIn());
         preferenceUtils.addMess("expires_time", user.getExpiresTime());
+        preferenceUtils.addMess("flag", user.getFlag());
     }
 
     public static void initUserCache(Context context) {
@@ -46,6 +47,7 @@ public class User {
         String avatar = preferenceUtils.getMessString("avatar");
         long expiresIn = preferenceUtils.getMessLong("expires_in", 0);
         long expiresTime = preferenceUtils.getMessLong("expires_time", 0);
+        int flag = preferenceUtils.getMessInt("flag", 0);
 
         User user = new User();
         user.setAvatar(avatar);
@@ -55,6 +57,7 @@ public class User {
         user.setToken(token);
         user.setUserId(userId);
         user.setUserName(userName);
+        user.setFlag(flag);
         cache = user;
     }
 
@@ -115,6 +118,19 @@ public class User {
      * 授权token凭证有效时间
      */
     private long expiresIn;
+
+    /**
+     * 是否是管理者
+     */
+    private int flag = 0;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public void setToken(String token) {
         this.token = token;

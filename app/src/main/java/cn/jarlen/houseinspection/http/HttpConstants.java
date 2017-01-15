@@ -7,7 +7,7 @@ package cn.jarlen.houseinspection.http;
 
 public class HttpConstants {
 
-    private static final String BASE_URL = "http://192.168.1.101/HI/";
+    private static final String BASE_URL = "http://192.168.1.104/HI/";
 
     public static final String API_URL = BASE_URL + "api.php";
 

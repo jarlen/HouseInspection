@@ -11,12 +11,13 @@ import java.util.List;
 import butterknife.BindView;
 import cn.jarlen.houseinspection.base.BKBaseActivity;
 import cn.jarlen.houseinspection.base.BKBaseFragment;
+import cn.jarlen.houseinspection.ui.AdSubActivity;
 import cn.jarlen.houseinspection.ui.MeFragment;
 import cn.jarlen.houseinspection.ui.ProblemFragment;
 import cn.jarlen.houseinspection.ui.ProblemSubActivity;
 import cn.jarlen.richcommon.ui.FragmentStack;
 
-public class HomeActivity extends BKBaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
+public class HomeActivity extends BKBaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, View.OnLongClickListener {
 
     List<BKBaseFragment> fragments;
 
@@ -41,6 +42,7 @@ public class HomeActivity extends BKBaseActivity implements RadioGroup.OnChecked
         FragmentStack.setCustomAnimations(R.anim.anim_fade_in,R.anim.anim_fade_out);
         menuGroup.setOnCheckedChangeListener(this);
         menuSubmit.setOnClickListener(this);
+        menuSubmit.setOnLongClickListener(this);
 
         if (fragments == null) {
             fragments = new ArrayList<BKBaseFragment>();
@@ -100,5 +102,16 @@ public class HomeActivity extends BKBaseActivity implements RadioGroup.OnChecked
 
                 break;
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()){
+            case R.id.menu_submit:
+                startActivity(AdSubActivity.class,null);
+                break;
+        }
+
+        return false;
     }
 }
